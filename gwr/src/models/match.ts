@@ -61,6 +61,22 @@ export class Match {
         return wonSets;
     }
 
+    getPlayer1(): string {
+        return this.player1;
+    }
+
+    setPlayer1(player1: string){
+        this.player1 = player1;
+    }
+
+    getPlayer2(): string {
+        return this.player2;
+    }
+
+    setPlayer2(player2: string){
+        this.player2 = player2;
+    }
+
     displayScore() {
         console.clear();
         console.log("Current game: \n" + this.game.displayScore());
@@ -76,6 +92,11 @@ export class Match {
     }
     getStartDate(): Date {
         return this.startDate;
+    }
+
+    getService(): string {
+        //FIXME Prüfen wer Service hat -> Tiebreak 
+        return this.game.getService();
     }
 
     static fillFromJson(json: any) {

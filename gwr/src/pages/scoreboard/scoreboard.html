@@ -14,7 +14,7 @@
         </ion-buttons> -->
       <ion-title>Scoreboard</ion-title>
       <ion-buttons end>
-        <button ion-button icon-only>
+        <button ion-button icon-only (click)="change()">
         <ion-icon name="sync"></ion-icon>
       </button>
       </ion-buttons>
@@ -29,7 +29,7 @@
       <ion-col>
         <ion-card (click)="match.score(match.player1)">
           <ion-card-header>
-            <ion-icon *ngIf="match.service === match.player1" name="tennisball" item-left></ion-icon>
+            <ion-icon *ngIf="match.getService() === match.player1" name="tennisball" item-left></ion-icon>
             {{match.player1}}
           </ion-card-header>
           <ion-card-content>
@@ -48,7 +48,7 @@
       <ion-col>
         <ion-card (click)="match.score(match.player2)">
           <ion-card-header>
-            <ion-icon *ngIf="match.service === match.player2" name="tennisball" item-left></ion-icon>
+            <ion-icon *ngIf="match.getService() === match.player2" name="tennisball" item-left></ion-icon>
             {{match.player2}}
           </ion-card-header>
           <ion-card-content>

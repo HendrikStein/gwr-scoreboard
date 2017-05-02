@@ -48,4 +48,7 @@ export class Tiebreak implements BaseGame {
     getPlayerLabel(player: string) {
         return player === this.service ? "*" + player : player;
     }
+    getService(): string {
+        return this.service;
+    }
 }

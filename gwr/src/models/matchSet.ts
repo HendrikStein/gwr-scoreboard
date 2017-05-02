@@ -59,6 +59,10 @@ export class MatchSet implements BaseGame {
         return player === this.service ? "*" + player : player;
     }
 
+    getService(): string {
+        return this.service;
+    }
+
     clone() {
         let c = new MatchSet(this.player1, this.player2, this.service);
         c.scoreCard = Object.assign({}, this.scoreCard);

@@ -24,4 +24,10 @@ export class ScoreboardPage {
     console.log('ionViewDidLoad Scoreboard');
   }
 
+  change() {
+    let player1 = this.match.getPlayer1();
+    let player2 = this.match.getPlayer2();
+    this.match.setPlayer1(player2);
+    this.match.setPlayer2(player1);
+  }
 }
