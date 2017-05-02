@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Match } from '../../models/match';
+import { ScoreboardPage } from '../scoreboard/scoreboard';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,10 @@ export class CreateMatchPage {
   createNewMatch(player1: string, player2: string) {
     let match = new Match(player1, player2, player1, null);
     this.storage.set(match.getStartDate().toISOString(), match);
+    this.navCtrl.push(ScoreboardPage, {
+      match: match
+    });
+
   }
   show() {
     this.storage.forEach((match) => {

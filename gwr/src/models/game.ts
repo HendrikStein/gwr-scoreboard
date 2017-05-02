@@ -40,7 +40,6 @@ export class Game implements BaseGame {
 
             // Handle advantage
             if (this.scoreCard[secondPlayer] === 4) {
-                this.scoreCard[player]++;
                 this.scoreCard[secondPlayer]--;
                 return;
             }

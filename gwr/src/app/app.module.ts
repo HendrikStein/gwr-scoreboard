@@ -6,6 +6,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CreateMatchPage } from '../pages/create-match/create-match';
+import { ScoreboardPage } from '../pages/scoreboard/scoreboard';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,7 +15,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     HomePage,
-    CreateMatchPage
+    CreateMatchPage,
+    ScoreboardPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
-    CreateMatchPage
+    CreateMatchPage,
+    ScoreboardPage
   ],
   providers: [
     StatusBar,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { CreateMatchPage } from '../create-match/create-match';
+import { ScoreboardPage } from '../scoreboard/scoreboard';
 import { Storage } from '@ionic/storage';
 import { Match } from '../../models/match';
 
@@ -26,6 +27,12 @@ export class HomePage {
   delete(event: any, startDate: Date) {
     this.storage.remove(startDate.toISOString()).then(() => {
       this.refresh();
+    });
+  }
+
+  resumeMatch(event: any, match: Match) {
+    this.navCtrl.push(ScoreboardPage, {
+      match: match
     });
   }
 

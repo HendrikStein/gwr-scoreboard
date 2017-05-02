@@ -10,9 +10,9 @@
 <ion-content padding>
   <h3>Digital Tennis Scoreboard</h3>
   <ion-list>
-    <ion-item-sliding *ngFor="let match of matches">
+    <ion-item-sliding *ngFor="let match of matches" (click)="resumeMatch($event, match)">
       <ion-item>
-        <ion-icon name="tennisball" item-left></ion-icon>
+        <ion-icon name="contacts" item-left></ion-icon>
         <h2>{{match.player1}} - {{match.player2}}</h2>
         <p>Start um {{match.startDate | date:'dd.MM.yyyy HH:mm'}}</p>
       </ion-item>
@@ -21,7 +21,7 @@
         <ion-icon name="cloud-upload"></ion-icon>
         Upload
       </button>
-        <button ion-button color="secondary" (click)="delete($event, match.startDate)">
+        <button ion-button color="secondary" (click)="delete($event, match.startDate)"> 
         <ion-icon name="trash"></ion-icon>
         Löschen
       </button>
@@ -29,7 +29,7 @@
     </ion-item-sliding>
   </ion-list>
   <div padding>
-    <button ion-button [navPush]="createMatchPage ">Neues Spiel</button>
+    <button ion-button [navPush]="createMatchPage">Neues Spiel</button>
   </div>
 
 </ion-content>

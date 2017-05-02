@@ -5,17 +5,16 @@ import { Pause } from "./pause";
 import { Tiebreak } from "./tiebreak";
 
 export class Match {
-    
+
     private matchSets: Array<MatchSet>;
     private matchSet: MatchSet;
     private game: BaseGame;
     private pauseList: Array<Pause>;
 
     constructor(private player1: string, private player2: string, private service: string, private startDate: Date) {
-        console.log(startDate);
         if (!startDate) {
             this.startDate = new Date();
-        }        
+        }
         this.matchSets = new Array<MatchSet>();
         this.matchSet = new MatchSet(player1, player2, service);
         this.game = new Game(player1, player2, service);
@@ -50,6 +49,16 @@ export class Match {
     pause() {
         let p = new Pause(this.matchSets, this.matchSet);
         this.pauseList.push(p);
+    }
+
+    displayWonSets(player: string): number {
+        let wonSets: number = 0;
+        this.matchSets.forEach(function (playedSet) {
+            if (playedSet.getWinner() === player) {
+                wonSets++;
+            }
+        });
+        return wonSets;
     }
 
     displayScore() {
