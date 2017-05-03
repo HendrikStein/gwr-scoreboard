@@ -6,12 +6,11 @@ export class MatchSet implements BaseGame {
     player2: string;
     service: string;
 
-    constructor(player1: string, player2: string, service: string) {
+    constructor(player1: string, player2: string) {
         this.player1 = player1;
         this.player2 = player2;
         this.scoreCard[player1] = 0;
         this.scoreCard[player2] = 0;
-        this.service = service;
     }
 
     score(player: string) {
@@ -42,29 +41,19 @@ export class MatchSet implements BaseGame {
         return this.scoreCard[this.player1] > this.scoreCard[this.player2] ? this.player1 : this.player2;
     }
 
-    swapService() {
-        this.service = this.service === this.player1 ? this.player2 : this.player1;
-    }
 
     display(player: string) {
         return this.scoreCard[player];
     }
 
     displayScore() {
-        return this.getPlayerLabel(this.player1) + ": " + this.scoreCard[this.player1] +
-            "\n" + this.getPlayerLabel(this.player2) + ": " + this.scoreCard[this.player2];
+        return this.player1 + ": " + this.scoreCard[this.player1] +
+            "\n" + this.player2 + ": " + this.scoreCard[this.player2];
     }
 
-    getPlayerLabel(player: string) {
-        return player === this.service ? "*" + player : player;
-    }
-
-    getService(): string {
-        return this.service;
-    }
 
     clone() {
-        let c = new MatchSet(this.player1, this.player2, this.service);
+        let c = new MatchSet(this.player1, this.player2);
         c.scoreCard = Object.assign({}, this.scoreCard);
         return c;
     }

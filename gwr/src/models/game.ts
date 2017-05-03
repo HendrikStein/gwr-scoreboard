@@ -12,14 +12,12 @@ export class Game implements BaseGame {
     };
     player1: string;
     player2: string;
-    service: string;
 
-    constructor(player1: string, player2: string, service: string) {
+    constructor(player1: string, player2: string) {
         this.player1 = player1;
         this.player2 = player2;
         this.scoreCard[player1] = 0;
         this.scoreCard[player2] = 0;
-        this.service = service;
     }
 
     score(player: string) {
@@ -69,14 +67,7 @@ export class Game implements BaseGame {
     }
 
     displayScore() {
-        return this.getPlayerLabel(this.player1) + ": " + this.scoreRules[this.scoreCard[this.player1]] +
-            "\n" + this.getPlayerLabel(this.player2) + ": " + this.scoreRules[this.scoreCard[this.player2]];
-    }
-
-    getPlayerLabel(player: string) {
-        return player === this.service ? "*" + player : player;
-    }
-    getService(): string {
-        return this.service;
+        return this.player1 + ": " + this.scoreRules[this.scoreCard[this.player1]] +
+            "\n" + this.player2 + ": " + this.scoreRules[this.scoreCard[this.player2]];
     }
 }

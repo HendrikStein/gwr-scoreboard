@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { Match } from '../../models/match';
+import { Pause } from "../../models/pause";
 
-/**
- * Generated class for the Scoreboard page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-scoreboard',
@@ -16,7 +12,7 @@ import { Match } from '../../models/match';
 export class ScoreboardPage {
   private match: Match;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alerCtrl: AlertController) {
     this.match = navParams.get('match');
   }
 
@@ -29,5 +25,16 @@ export class ScoreboardPage {
     let player2 = this.match.getPlayer2();
     this.match.setPlayer1(player2);
     this.match.setPlayer2(player1);
+  }
+
+  pause() {
+    let pause: Pause = this.match.pause();
+    let alert = this.alerCtrl.create({
+      title: 'Match Pause ',
+      subTitle: pause.getFormattedDateTime(),
+      message: this.match.getPlayer1() + ' und ' + this.match.getPlayer2() + ' nehmen sich eine wohlverdiente Pause.',
+      buttons: ['Fortsetzen']
+    });
+    alert.present();
   }
 }

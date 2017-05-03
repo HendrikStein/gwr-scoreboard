@@ -7,14 +7,17 @@
 <ion-header>
   <ion-navbar>
     <ion-toolbar>
-      <!--        <ion-buttons start>
-          <button ion-button icon-only>
-            <ion-icon name="undo"></ion-icon>
+      <ion-buttons start>
+        <button ion-button icon-only color="royal" (click)="pause()">
+            <ion-icon name="pause"></ion-icon>
         </button>
-        </ion-buttons> -->
+      </ion-buttons>
       <ion-title>Scoreboard</ion-title>
       <ion-buttons end>
-        <button ion-button icon-only (click)="change()">
+        <button ion-button icon-only color="royal" (click)="change()">
+        <ion-icon name="walk"></ion-icon>
+        </button>
+        <button ion-button icon-only color="royal" (click)="match.swapService()">
         <ion-icon name="sync"></ion-icon>
       </button>
       </ion-buttons>
@@ -27,42 +30,51 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card (click)="match.score(match.player1)">
+        <ion-card (click)="match.score(match.player1)" class="scoreboard-card">
           <ion-card-header>
             <ion-icon *ngIf="match.getService() === match.player1" name="tennisball" item-left></ion-icon>
             {{match.player1}}
           </ion-card-header>
-          <ion-card-content>
-            <div>
-              {{match.game.display(match.player1)}}
-            </div>
-            <div>
-              {{match.matchSet.display(match.player1)}}
-            </div>
-            <div>
-              {{match.displayWonSets(match.player1)}}
-            </div>
+          <ion-card-content text-center>
+            <h1>{{match.game.display(match.player1)}}</h1>
           </ion-card-content>
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card (click)="match.score(match.player2)">
+        <ion-card (click)="match.score(match.player2)" class="scoreboard-card">
           <ion-card-header>
             <ion-icon *ngIf="match.getService() === match.player2" name="tennisball" item-left></ion-icon>
             {{match.player2}}
           </ion-card-header>
-          <ion-card-content>
-            <div>
-              {{match.game.display(match.player2)}}
-            </div>
-            <div>
-              {{match.matchSet.display(match.player2)}}
-            </div>
-            <div>
-              {{match.displayWonSets(match.player2)}}
-            </div>
+          <ion-card-content text-center>
+            <h1>{{match.game.display(match.player2)}}</h1>
           </ion-card-content>
         </ion-card>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        {{match.player1}}
+      </ion-col>
+      <ion-col>
+        <b>{{match.displayWonSets(match.player1)}}</b>
+      </ion-col>
+      <ion-col>
+        {{match.matchSet.display(match.player1)}}
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        {{match.player2}}
+      </ion-col>
+      <ion-col>
+        <b>{{match.displayWonSets(match.player2)}}</b>
+      </ion-col>
+      <ion-col>
+        {{match.matchSet.display(match.player2)}}
       </ion-col>
     </ion-row>
   </ion-grid>

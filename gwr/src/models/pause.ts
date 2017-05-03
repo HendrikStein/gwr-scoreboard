@@ -11,6 +11,10 @@ export class Pause {
         this.date = new Date();
     }
 
+    getFormattedDateTime():string{
+        return this.date.toLocaleDateString() + ", " + this.date.toLocaleTimeString();
+    }
+    
     display() {
         console.log("Pause at: " + this.date.toLocaleDateString() + ", " + this.date.toLocaleTimeString() + "\n");
         console.log(this.matchSet.displayScore());

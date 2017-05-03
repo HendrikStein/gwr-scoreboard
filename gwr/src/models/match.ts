@@ -11,13 +11,14 @@ export class Match {
     private game: BaseGame;
     private pauseList: Array<Pause>;
 
+
     constructor(private player1: string, private player2: string, private service: string, private startDate: Date) {
         if (!startDate) {
             this.startDate = new Date();
         }
         this.matchSets = new Array<MatchSet>();
-        this.matchSet = new MatchSet(player1, player2, service);
-        this.game = new Game(player1, player2, service);
+        this.matchSet = new MatchSet(player1, player2);
+        this.game = new Game(player1, player2);
         this.pauseList = new Array<Pause>();
     }
 
@@ -25,30 +26,44 @@ export class Match {
         this.game.score(player);
         if (this.game.isFinished()) {
             this.matchSet.score(player);
+            if (this.game instanceof Tiebreak) {
+                this.service = this.game.getStartService();
+            }
             this.swapService();
-
             if (this.matchSet.isTiebreak()) {
                 this.game = new Tiebreak(this.player1, this.player2, this.service);
             } else {
-                this.game = new Game(this.player1, this.player2, this.service);
+                this.game = new Game(this.player1, this.player2);
             }
         }
 
+        if (this.matchSet.isTiebreak()) {
+            this.checkServiceInTiebreak();
+        }
+
+
         if (this.matchSet.isFinished()) {
             this.matchSets.push(this.matchSet);
-            this.matchSet = new MatchSet(this.player1, this.player2, this.service);
-            this.game = new Game(this.player1, this.player2, this.service);
+            this.matchSet = new MatchSet(this.player1, this.player2);
+            this.game = new Game(this.player1, this.player2);
         }
     }
 
     swapService() {
-        this.matchSet.swapService();
         this.service = this.service === this.player1 ? this.player2 : this.player1;
     }
 
-    pause() {
+    checkServiceInTiebreak() {
+        let scoreSum = this.game.scoreCard[this.player1] + this.game.scoreCard[this.player2];
+        if (scoreSum % 2 === 1 && !this.game.isFinished()) {
+            this.swapService();
+        }
+    }
+
+    pause(): Pause {
         let p = new Pause(this.matchSets, this.matchSet);
         this.pauseList.push(p);
+        return p;
     }
 
     displayWonSets(player: string): number {
@@ -65,7 +80,7 @@ export class Match {
         return this.player1;
     }
 
-    setPlayer1(player1: string){
+    setPlayer1(player1: string) {
         this.player1 = player1;
     }
 
@@ -73,7 +88,7 @@ export class Match {
         return this.player2;
     }
 
-    setPlayer2(player2: string){
+    setPlayer2(player2: string) {
         this.player2 = player2;
     }
 
@@ -95,8 +110,11 @@ export class Match {
     }
 
     getService(): string {
-        //FIXME Prüfen wer Service hat -> Tiebreak 
-        return this.game.getService();
+        return this.service;
+    }
+
+    setService(service: string) {
+        this.service;
     }
 
     static fillFromJson(json: any) {

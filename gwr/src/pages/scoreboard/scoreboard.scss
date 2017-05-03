@@ -1,3 +1,16 @@
-page-scoreboard {
+.scoreboard-card {
+
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  .card-header {
+    background-color: lightgray;
+  }
+
+  .card-content {
+      background-color: lightgray;
+  }
 
 }
