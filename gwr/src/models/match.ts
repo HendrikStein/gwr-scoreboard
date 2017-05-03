@@ -61,7 +61,7 @@ export class Match {
     }
 
     pause(): Pause {
-        let p = new Pause(this.matchSets, this.matchSet);
+        let p = new Pause(this.matchSets, this.matchSet, null);
         this.pauseList.push(p);
         return p;
     }
@@ -92,6 +92,21 @@ export class Match {
         this.player2 = player2;
     }
 
+    setCurrentGame(game: BaseGame) {
+        this.game = game;
+    }
+
+    setCurrentMatchSet(currentSet: MatchSet) {
+        this.matchSet = currentSet;
+    }
+
+    addMatchSet(matchSet: MatchSet) {
+        this.matchSets.push(matchSet);
+    }
+
+    addPause(pause: Pause) {
+        this.pauseList.push(pause);
+    }
     displayScore() {
         console.clear();
         console.log("Current game: \n" + this.game.displayScore());
@@ -118,9 +133,36 @@ export class Match {
     }
 
     static fillFromJson(json: any) {
-        console.log(json);
+        let match = new Match(json.player1, json.player2, json.service, json.startDate);
+        let currentGame: BaseGame;
+        let currentMatchSet: MatchSet;
 
-        // TODO Unterobjekte
-        return new Match(json.player1, json.player2, json.service, json.startDate);
+        if (json.matchSet.scoreCard[json.player1] === 6 && json.matchSet.scoreCard[json.player2] === 6) {
+            currentGame = Tiebreak.fillFromJson(json.game);
+        } else {
+            currentGame = Game.fillFromJson(json.game);
+        }
+        match.setCurrentGame(currentGame);
+
+        currentMatchSet = MatchSet.fillFromJson(json.matchSet);
+        match.matchSet = currentMatchSet;
+
+        json.matchSets.forEach(element => {
+            match.addMatchSet(MatchSet.fillFromJson(element));
+        });
+
+        json.pauseList.forEach(element => {
+            let currentMatchSetsPause = Match.fillMatchSetsFromJson(element.matchSets);
+            let currentMatchSetPause = MatchSet.fillFromJson(element.matchSet);
+            match.addPause(new Pause(currentMatchSetsPause, currentMatchSetPause, element.date));
+        });
+        return match;
+    }
+    private static fillMatchSetsFromJson(json: any): Array<MatchSet> {
+        let matchSets = new Array<MatchSet>();
+        json.forEach(element => {
+            matchSets.push(MatchSet.fillFromJson(element));
+        });
+        return matchSets;
     }
 }

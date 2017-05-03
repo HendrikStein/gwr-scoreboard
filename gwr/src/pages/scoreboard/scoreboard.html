@@ -30,7 +30,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card (click)="match.score(match.player1)" class="scoreboard-card">
+        <ion-card (click)="score(match.player1)" class="scoreboard-card">
           <ion-card-header>
             <ion-icon *ngIf="match.getService() === match.player1" name="tennisball" item-left></ion-icon>
             {{match.player1}}
@@ -41,7 +41,7 @@
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card (click)="match.score(match.player2)" class="scoreboard-card">
+        <ion-card (click)="score(match.player2)" class="scoreboard-card">
           <ion-card-header>
             <ion-icon *ngIf="match.getService() === match.player2" name="tennisball" item-left></ion-icon>
             {{match.player2}}

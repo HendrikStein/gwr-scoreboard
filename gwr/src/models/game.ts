@@ -70,4 +70,12 @@ export class Game implements BaseGame {
         return this.player1 + ": " + this.scoreRules[this.scoreCard[this.player1]] +
             "\n" + this.player2 + ": " + this.scoreRules[this.scoreCard[this.player2]];
     }
+    setScoreCard(sc: any) {
+        this.scoreCard = sc;
+    }
+    static fillFromJson(json: any): Game {
+        let game = new Game(json.player1, json.player2);
+        game.setScoreCard(json.scoreCard);
+        return game;
+    }
 }

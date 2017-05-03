@@ -51,10 +51,19 @@ export class MatchSet implements BaseGame {
             "\n" + this.player2 + ": " + this.scoreCard[this.player2];
     }
 
+    setScoreCard(sc: any) {
+        this.scoreCard = sc;
+    }
 
     clone() {
         let c = new MatchSet(this.player1, this.player2);
         c.scoreCard = Object.assign({}, this.scoreCard);
         return c;
+    }
+
+    static fillFromJson(json: any): MatchSet {
+        let matchSet = new MatchSet(json.player1, json.player2);
+        matchSet.setScoreCard(json.scoreCard);
+        return matchSet;
     }
 }

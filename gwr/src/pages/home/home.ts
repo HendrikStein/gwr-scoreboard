@@ -48,13 +48,15 @@ export class HomePage {
   refresh() {
     console.log("Data refreshed!");
     this.matches = [];
-    this.storage.forEach((match, key) => {
-      this.matches.push(Match.fillFromJson(match));
-    }).then(() => {
-      this.matches.sort((a: Match, b: Match): number => {
-        if (a.getStartDate() < b.getStartDate()) return 1;
-        if (a.getStartDate() > b.getStartDate()) return -1;
-        return 0;
+    this.storage.ready().then(() => {
+      this.storage.forEach((match, key) => {
+        this.matches.push(Match.fillFromJson(match));
+      }).then(() => {
+        this.matches.sort((a: Match, b: Match): number => {
+          if (a.getStartDate() < b.getStartDate()) return 1;
+          if (a.getStartDate() > b.getStartDate()) return -1;
+          return 0;
+        });
       });
     });
   }

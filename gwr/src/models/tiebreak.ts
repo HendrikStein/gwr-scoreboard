@@ -47,4 +47,13 @@ export class Tiebreak implements BaseGame {
     getStartService(): string {
         return this.startService;
     }
+
+    setScoreCard(sc: any) {
+        this.scoreCard = sc;
+    }
+    static fillFromJson(json: any): Tiebreak {
+        let tiebreak = new Tiebreak(json.player1, json.player2, json.startService);
+        tiebreak.setScoreCard(json.scoreCard);
+        return tiebreak;
+    }
 }
