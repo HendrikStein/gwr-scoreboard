@@ -25,8 +25,12 @@ export class HomePage {
   }
 
   delete(event: any, startDate: Date) {
-    this.storage.remove(startDate.toISOString()).then(() => {
-      this.refresh();
+    this.storage.ready().then(() => {
+      this.storage.remove(startDate.toISOString()).then(() => {
+        this.refresh();
+      }).catch((ex) => {
+        console.log("Abbruch..." + ex);
+      });
     });
   }
 
@@ -46,7 +50,7 @@ export class HomePage {
   }
 
   refresh() {
-    console.log("Data refreshed!");
+    console.log("Refresh called!");
     this.matches = [];
     this.storage.ready().then(() => {
       this.storage.forEach((match, key) => {

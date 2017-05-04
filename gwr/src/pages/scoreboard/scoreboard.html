@@ -1,27 +1,9 @@
-<!--
-  Generated template for the Scoreboard page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
-    <ion-toolbar>
-      <ion-buttons start>
-        <button ion-button icon-only color="royal" (click)="pause()">
-            <ion-icon name="pause"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>Scoreboard</ion-title>
-      <ion-buttons end>
-        <button ion-button icon-only color="royal" (click)="change()">
-        <ion-icon name="walk"></ion-icon>
-        </button>
-        <button ion-button icon-only color="royal" (click)="match.swapService()">
-        <ion-icon name="sync"></ion-icon>
-      </button>
-      </ion-buttons>
-    </ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Scoreboard</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -52,8 +34,6 @@
         </ion-card>
       </ion-col>
     </ion-row>
-
-
     <ion-row>
       <ion-col>
         {{match.player1}}
@@ -80,3 +60,28 @@
   </ion-grid>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <button ion-button icon-only color="royal" (click)="pause()">
+            <ion-icon name="pause"></ion-icon>
+        </button>
+      <button ion-button icon-only color="royal" (click)="change()">
+        <ion-icon name="walk"></ion-icon>
+        </button>
+      <button ion-button icon-only color="royal" (click)="match.swapService()">
+        <ion-icon name="sync"></ion-icon>
+        </button>
+    </ion-buttons>
+    <!--
+      <ion-buttons end>
+        <button ion-button icon-only color="royal" (click)="change()">
+        <ion-icon name="walk"></ion-icon>
+        </button>
+        <button ion-button icon-only color="royal" (click)="match.swapService()">
+        <ion-icon name="sync"></ion-icon>
+      </button>
+      </ion-buttons> -->
+  </ion-toolbar>
+</ion-footer>

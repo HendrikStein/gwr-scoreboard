@@ -10,8 +10,8 @@
 <ion-content padding>
   <h3>Digital Tennis Scoreboard</h3>
   <ion-list>
-    <ion-item-sliding *ngFor="let match of matches" (click)="resumeMatch($event, match)">
-      <ion-item>
+    <ion-item-sliding *ngFor="let match of matches">
+      <ion-item (click)="resumeMatch($event, match)">
         <ion-icon name="contacts" item-left></ion-icon>
         <h2>{{match.player1}} - {{match.player2}}</h2>
         <p>Start um {{match.startDate | date:'dd.MM.yyyy HH:mm'}}</p>

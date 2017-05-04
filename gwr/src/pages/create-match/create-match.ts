@@ -20,7 +20,9 @@ export class CreateMatchPage {
 
   createNewMatch(player1: string, player2: string) {
     let match = new Match(player1, player2, player1, null);
-    this.storage.set(match.getStartDate().toISOString(), match);
+    this.storage.ready().then(() => {
+      this.storage.set(match.getStartDate().toISOString(), match);
+    });
     this.navCtrl.push(ScoreboardPage, {
       match: match
     });

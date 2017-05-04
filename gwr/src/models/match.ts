@@ -133,7 +133,7 @@ export class Match {
     }
 
     static fillFromJson(json: any) {
-        let match = new Match(json.player1, json.player2, json.service, json.startDate);
+        let match = new Match(json.player1, json.player2, json.service, new Date(json.startDate));
         let currentGame: BaseGame;
         let currentMatchSet: MatchSet;
 

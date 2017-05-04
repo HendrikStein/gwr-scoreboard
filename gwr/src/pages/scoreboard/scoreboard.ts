@@ -15,11 +15,11 @@ export class ScoreboardPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alerCtrl: AlertController, public storage: Storage) {
     this.match = navParams.get('match');
-    console.log(JSON.stringify(this.match, null, 2));
+    console.log(this.storage.driver);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Scoreboard');
+
   }
 
   change() {
@@ -37,7 +37,7 @@ export class ScoreboardPage {
   pause() {
     let pause: Pause = this.match.pause();
     this.store();
-    console.log(JSON.stringify(this.match, null, 2));
+    //console.log(JSON.stringify(this.match, null, 2));
     let alert = this.alerCtrl.create({
       title: 'Match Pause ',
       subTitle: pause.getFormattedDateTime(),
@@ -48,9 +48,10 @@ export class ScoreboardPage {
   }
 
   store() {
+    console.log('Store called');
     this.storage.ready().then(() => {
       this.storage.set(this.match.getStartDate().toISOString(), this.match).then(() => {
-        console.log('Da shit is stored! ' + this.match.getStartDate().toISOString());
+        console.log('Match updated! ' + this.match.getStartDate().toISOString());
       });
     });
   }
