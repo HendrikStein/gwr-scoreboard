@@ -39,7 +39,7 @@ export class HomePage {
       match: match
     });
   }
-  
+
   createNewMatch() {
     this.navCtrl.push(CreateMatchPage);
   }
@@ -60,11 +60,15 @@ export class HomePage {
       this.storage.forEach((match, key) => {
         this.matches.push(Match.fillFromJson(match));
       }).then(() => {
-        this.matches.sort((a: Match, b: Match): number => {
-          if (a.getStartDate() < b.getStartDate()) return 1;
-          if (a.getStartDate() > b.getStartDate()) return -1;
-          return 0;
-        });
+        if (this.matches.length > 0) {
+          this.matches.sort((a: Match, b: Match): number => {
+            if (a.getStartDate() < b.getStartDate()) return 1;
+            if (a.getStartDate() > b.getStartDate()) return -1;
+            return 0;
+          });
+        } else {
+            this.createNewMatch();
+        }
       });
     });
   }
