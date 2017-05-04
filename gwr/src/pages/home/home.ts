@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ModalController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { CreateMatchPage } from '../create-match/create-match';
 import { ScoreboardPage } from '../scoreboard/scoreboard';
@@ -13,7 +13,7 @@ import { Match } from '../../models/match';
 export class HomePage {
   private createMatchPage: any;
   private matches: Match[] = [];
-  constructor(public navCtrl: NavController, public storage: Storage, private alerCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public storage: Storage, private alerCtrl: AlertController, private modalCtrl: ModalController) {
     this.createMatchPage = CreateMatchPage;
   }
 
@@ -38,6 +38,10 @@ export class HomePage {
     this.navCtrl.push(ScoreboardPage, {
       match: match
     });
+  }
+  
+  createNewMatch() {
+    this.navCtrl.push(CreateMatchPage);
   }
 
   send(event: any, match: Match) {

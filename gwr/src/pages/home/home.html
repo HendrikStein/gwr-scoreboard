@@ -3,12 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Start</ion-title>
+    <ion-title>Match Übersicht</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Digital Tennis Scoreboard</h3>
   <ion-list>
     <ion-item-sliding *ngFor="let match of matches">
       <ion-item (click)="resumeMatch($event, match)">
@@ -28,8 +27,5 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <div padding>
-    <button ion-button [navPush]="createMatchPage">Neues Spiel</button>
-  </div>
-
+  <button ion-button [navPush]="createMatchPage">Neues Spiel</button>
 </ion-content>

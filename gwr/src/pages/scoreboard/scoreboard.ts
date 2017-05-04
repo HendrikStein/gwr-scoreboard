@@ -13,9 +13,8 @@ import { Storage } from '@ionic/storage';
 export class ScoreboardPage {
   private match: Match;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alerCtrl: AlertController, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alerCtrl: AlertController, private storage: Storage) {
     this.match = navParams.get('match');
-    console.log(this.storage.driver);
   }
 
   ionViewDidLoad() {

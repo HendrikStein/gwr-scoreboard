@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Match } from '../../models/match';
 import { ScoreboardPage } from '../scoreboard/scoreboard';
@@ -11,11 +11,11 @@ import { ScoreboardPage } from '../scoreboard/scoreboard';
 })
 export class CreateMatchPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateMatch');
+
   }
 
   createNewMatch(player1: string, player2: string) {
@@ -23,10 +23,11 @@ export class CreateMatchPage {
     this.storage.ready().then(() => {
       this.storage.set(match.getStartDate().toISOString(), match);
     });
+
     this.navCtrl.push(ScoreboardPage, {
       match: match
     });
-
+    this.navCtrl.removeView(this.viewCtrl);
   }
   show() {
     this.storage.forEach((match) => {

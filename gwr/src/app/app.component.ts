@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { HomePage } from '../pages/home/home';
 
 @Component({
@@ -20,7 +19,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Start', component: HomePage },
+      { title: 'Match Übersicht', component: HomePage },
+      
     ];
 
   }

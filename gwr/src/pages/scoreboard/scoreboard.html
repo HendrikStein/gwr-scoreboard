@@ -63,25 +63,18 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons>
+    <ion-buttons start>
       <button ion-button icon-only color="royal" (click)="pause()">
             <ion-icon name="pause"></ion-icon>
         </button>
-      <button ion-button icon-only color="royal" (click)="change()">
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" margin-right="100" (click)="change()">
         <ion-icon name="walk"></ion-icon>
         </button>
       <button ion-button icon-only color="royal" (click)="match.swapService()">
         <ion-icon name="sync"></ion-icon>
         </button>
     </ion-buttons>
-    <!--
-      <ion-buttons end>
-        <button ion-button icon-only color="royal" (click)="change()">
-        <ion-icon name="walk"></ion-icon>
-        </button>
-        <button ion-button icon-only color="royal" (click)="match.swapService()">
-        <ion-icon name="sync"></ion-icon>
-      </button>
-      </ion-buttons> -->
   </ion-toolbar>
 </ion-footer>
