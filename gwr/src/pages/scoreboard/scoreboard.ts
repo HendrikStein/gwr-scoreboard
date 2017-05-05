@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Match } from '../../models/match';
-import { Pause } from "../../models/pause";
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -34,20 +33,28 @@ export class ScoreboardPage {
   }
 
   pause() {
-    let pause: Pause = this.match.pause();
-    this.store();
-    //console.log(JSON.stringify(this.match, null, 2));
     let alert = this.alerCtrl.create({
       title: 'Match Pause ',
-      subTitle: pause.getFormattedDateTime(),
-      message: this.match.getPlayer1() + ' und ' + this.match.getPlayer2() + ' nehmen sich eine wohlverdiente Pause.',
-      buttons: ['Fortsetzen']
+      subTitle: "Have a break have beer",
+      message: this.match.getPlayer1() + ' und ' + this.match.getPlayer2() + ' wollen sich eine wohlverdiente Pause nehmen. Die Pausen für den Matchreport werden nach dem letzten abgeschlossen Satz registriert.',
+      buttons: [
+        {
+          text: 'Pause',
+          handler: () => {
+            this.match.pause();
+            this.store();
+          }
+        },
+        {
+          text: 'Abbrechen',
+          handler: () => {
+          }
+        }]
     });
     alert.present();
   }
 
   store() {
-    console.log('Store called');
     this.storage.ready().then(() => {
       this.storage.set(this.match.getStartDate().toISOString(), this.match).then(() => {
         console.log('Match updated! ' + this.match.getStartDate().toISOString());

@@ -17,8 +17,8 @@
       </ion-item>
       <ion-item-options side="left">
         <button ion-button color="primary" (click)="send($event, match)">
-        <ion-icon name="cloud-upload"></ion-icon>
-        Upload
+        <ion-icon name="mail"></ion-icon>
+        Email
       </button>
         <button ion-button color="secondary" (click)="delete($event, match.startDate)"> 
         <ion-icon name="trash"></ion-icon>
@@ -34,7 +34,6 @@
   <ion-toolbar>
     <ion-buttons start>
       <button ion-button icon-only color="royal" [navPush]="createMatchPage">
-        Neues Match
       <ion-icon name="add-circle"></ion-icon>
         </button>
     </ion-buttons>

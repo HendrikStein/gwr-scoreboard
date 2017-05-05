@@ -1,7 +1,6 @@
 import { MatchSet } from "./matchSet";
 import { BaseGame } from "./baseGame";
 import { Game } from "./game";
-import { Pause } from "./pause";
 import { Tiebreak } from "./tiebreak";
 
 export class Match {
@@ -9,8 +8,7 @@ export class Match {
     private matchSets: Array<MatchSet>;
     private matchSet: MatchSet;
     private game: BaseGame;
-    private pauseList: Array<Pause>;
-
+    private matchReport: any = {};
 
     constructor(private player1: string, private player2: string, private service: string, private startDate: Date) {
         if (!startDate) {
@@ -19,7 +17,8 @@ export class Match {
         this.matchSets = new Array<MatchSet>();
         this.matchSet = new MatchSet(player1, player2);
         this.game = new Game(player1, player2);
-        this.pauseList = new Array<Pause>();
+        this.matchReport[player1] = [];
+        this.matchReport[player2] = [];
     }
 
     score(player: string) {
@@ -43,6 +42,9 @@ export class Match {
 
 
         if (this.matchSet.isFinished()) {
+            this.matchReport[this.player1].push(this.matchSet.scoreCard[this.player1]);
+            this.matchReport[this.player2].push(this.matchSet.scoreCard[this.player2]);
+
             this.matchSets.push(this.matchSet);
             this.matchSet = new MatchSet(this.player1, this.player2);
             this.game = new Game(this.player1, this.player2);
@@ -60,10 +62,9 @@ export class Match {
         }
     }
 
-    pause(): Pause {
-        let p = new Pause(this.matchSets, this.matchSet, null);
-        this.pauseList.push(p);
-        return p;
+    pause() {
+        this.matchReport[this.player1].push("P");
+        this.matchReport[this.player2].push("P");
     }
 
     displayWonSets(player: string): number {
@@ -74,6 +75,14 @@ export class Match {
             }
         });
         return wonSets;
+    }
+
+    matchReportToCsv(): string {
+        let csv = this.player1 + ";" + this.player2 + "\n";
+        for (var i = 0; i < this.matchReport[this.player1].length; i++) {
+            csv += this.matchReport[this.player1][i] + ";" + this.matchReport[this.player2][i] + "\n";
+        }
+        return csv;
     }
 
     getPlayer1(): string {
@@ -103,10 +112,6 @@ export class Match {
     addMatchSet(matchSet: MatchSet) {
         this.matchSets.push(matchSet);
     }
-
-    addPause(pause: Pause) {
-        this.pauseList.push(pause);
-    }
     displayScore() {
         console.clear();
         console.log("Current game: \n" + this.game.displayScore());
@@ -114,10 +119,6 @@ export class Match {
         console.log("Played Sets: \n");
         this.matchSets.forEach(function (playedSet) {
             console.log(playedSet.displayScore());
-        });
-        console.log("Pause: \n");
-        this.pauseList.forEach(function (pauseEntry) {
-            console.log(pauseEntry.display());
         });
     }
     getStartDate(): Date {
@@ -131,7 +132,12 @@ export class Match {
     setService(service: string) {
         this.service;
     }
-
+    getMatchSets(): Array<MatchSet> {
+        return this.matchSets;
+    }
+    setMatchReport(mr: any) {
+        this.matchReport = mr;
+    }
     static fillFromJson(json: any) {
         let match = new Match(json.player1, json.player2, json.service, new Date(json.startDate));
         let currentGame: BaseGame;
@@ -150,19 +156,7 @@ export class Match {
         json.matchSets.forEach(element => {
             match.addMatchSet(MatchSet.fillFromJson(element));
         });
-
-        json.pauseList.forEach(element => {
-            let currentMatchSetsPause = Match.fillMatchSetsFromJson(element.matchSets);
-            let currentMatchSetPause = MatchSet.fillFromJson(element.matchSet);
-            match.addPause(new Pause(currentMatchSetsPause, currentMatchSetPause, element.date));
-        });
+        match.setMatchReport(json.matchReport);
         return match;
-    }
-    private static fillMatchSetsFromJson(json: any): Array<MatchSet> {
-        let matchSets = new Array<MatchSet>();
-        json.forEach(element => {
-            matchSets.push(MatchSet.fillFromJson(element));
-        });
-        return matchSets;
     }
 }
