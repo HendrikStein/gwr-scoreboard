@@ -27,6 +27,26 @@ export class HomePage {
   }
 
   delete(event: any, startDate: Date) {
+     let alert = this.alerCtrl.create({
+      title: 'Löschen',
+      message: 'Soll dieses Match wirklich entfernt werden?',
+      buttons: [
+        {
+          text: 'Löschen',
+          handler: () => {
+            this.deleteAction(startDate);
+          }
+        },
+        {
+          text: 'Abbrechen',
+          handler: () => {
+          }
+        }]
+    });
+    alert.present();
+  }
+
+  deleteAction(startDate: Date){
     this.storage.ready().then(() => {
       this.storage.remove(startDate.toISOString()).then(() => {
         this.refresh();

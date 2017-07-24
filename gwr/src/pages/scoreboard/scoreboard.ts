@@ -34,8 +34,8 @@ export class ScoreboardPage {
 
   pause() {
     let alert = this.alerCtrl.create({
-      title: 'Match Pause ',
-      subTitle: "Have a break have beer",
+      title: 'Pause',
+      subTitle: "Soll das Match wirklich unterbrochen werden?",
       message: this.match.getPlayer1() + ' und ' + this.match.getPlayer2() + ' wollen sich eine wohlverdiente Pause nehmen. Die Pausen für den Matchreport werden nach dem letzten abgeschlossen Satz registriert.',
       buttons: [
         {
@@ -43,6 +43,7 @@ export class ScoreboardPage {
           handler: () => {
             this.match.pause();
             this.store();
+            this.showPauseScreen();
           }
         },
         {
@@ -53,6 +54,17 @@ export class ScoreboardPage {
     });
     alert.present();
   }
+
+  showPauseScreen() {
+    let alert = this.alerCtrl.create({
+      title: 'Pause',
+      subTitle: 'Die Spieler befinden sich aktuell in einer Pause',
+      message: 'Zum Fortsetzen bitte \'Weiter\' drücken',
+      buttons: ['Weiter']
+    });
+    alert.present();
+  }
+
 
   store() {
     this.storage.ready().then(() => {
